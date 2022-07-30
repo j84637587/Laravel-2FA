@@ -17,3 +17,7 @@ I use `Google Authenticator App` for 2FA auth.
 $ npm install --production
 $ composer install
 ```
+
+### Google Authenticator App
+
+<img src="https://user-images.githubusercontent.com/29170077/181878182-dee452be-fc6c-44da-b363-e1b3ce1fee83.png" alt="" width="225" height="399" />
