@@ -14,7 +14,8 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <p>{{ __('You are logged in!') }}</p>
+                    <a class="btn btn-primary btn-sm " href="{{ route('show2fa') }}" role="button">Two-factor authentication Settings</a>
                 </div>
             </div>
         </div>

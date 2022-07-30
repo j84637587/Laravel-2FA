@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginSecurityController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +21,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::group(['prefix' => '2fa'], function () {
+    Route::get('/', [LoginSecurityController::class, 'show2faForm'])->name('show2fa');
+    Route::post('/generateSecret', [LoginSecurityController::class, 'generate2faSecret'])->name('generate2faSecret');
+    Route::post('/enable2fa', [LoginSecurityController::class, 'enable2fa'])->name('enable2fa');
+    Route::post('/disable2fa', [LoginSecurityController::class, 'disable2fa'])->name('disable2fa');
+
+    // 2fa middleware
+    Route::post('/2faVerify', function () {
+        return redirect(URL()->previous());
+    })->name('2faVerify')->middleware('2fa');
+});
+
+// test middleware
+Route::get('/test_middleware', function () {
+    return "2FA middleware work!";
+})->middleware(['auth', '2fa']);
