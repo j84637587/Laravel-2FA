@@ -21,8 +21,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
 Route::group(['prefix' => '2fa'], function () {
     Route::get('/', [LoginSecurityController::class, 'show2faForm'])->name('show2fa');
     Route::post('/generateSecret', [LoginSecurityController::class, 'generate2faSecret'])->name('generate2faSecret');
@@ -31,11 +29,16 @@ Route::group(['prefix' => '2fa'], function () {
 
     // 2fa middleware
     Route::post('/2faVerify', function () {
-        return redirect(URL()->previous());
+        return redirect(session('url.intended'));
     })->name('2faVerify')->middleware('2fa');
 });
 
 // test middleware
 Route::get('/test_middleware', function () {
+    // show msg after auth & 2fa
     return "2FA middleware work!";
 })->middleware(['auth', '2fa']);
+
+Route::middleware(['auth', '2fa'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+});

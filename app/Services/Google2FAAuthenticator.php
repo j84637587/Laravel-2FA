@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use PragmaRX\Google2FALaravel\Services\Authenticator;
+use PragmaRX\Google2FALaravel\Support\Authenticator;
 
 class Google2FAAuthenticator extends Authenticator
 {

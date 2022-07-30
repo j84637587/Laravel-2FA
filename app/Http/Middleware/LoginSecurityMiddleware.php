@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use App\Services\Google2FAAuthenticator;
 
 class LoginSecurityMiddleware
 {
@@ -17,11 +18,14 @@ class LoginSecurityMiddleware
     public function handle(Request $request, Closure $next)
     {
         $authenticator = app(Google2FAAuthenticator::class)->boot($request);
-
         if ($authenticator->isAuthenticated()) {
             return $next($request);
         }
 
+        if(!session()->has('url.intended'))
+        {
+            session(['url.intended' => url()->previous()]);
+        }
         return $authenticator->makeRequestOneTimePasswordResponse();
     }
 }
