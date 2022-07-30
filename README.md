@@ -21,3 +21,7 @@ $ composer install
 ### Google Authenticator App
 
 <img src="https://user-images.githubusercontent.com/29170077/181878182-dee452be-fc6c-44da-b363-e1b3ce1fee83.png" alt="" width="225" height="399" />
+
+### OTP Page
+
+![TwoFactorAuthProject_OTP](https://user-images.githubusercontent.com/29170077/181878533-71f466f4-2cc1-47d1-bcc7-5628a0a536d0.png)
